@@ -112,7 +112,7 @@ import '../styles/global.css';
       document.addEventListener('click', (event) => { const target = event.target as HTMLElement; if (target.closest('#mobile-menu-toggle')) { setMenu(!$('mobile-menu').classList.contains('hidden')); return; } if (target.closest('[data-close-menu]')) setMenu(false); }); document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { setMenu(false); setSheet(false); } });
       $('theme-toggle').addEventListener('click', toggleTheme); $('mobile-menu-theme').addEventListener('click', toggleTheme);
 
-      fetch('/data/manuals.csv').then((response) => { if (!response.ok) throw new Error('ไม่สามารถโหลดข้อมูลได้'); return response.text(); }).then((text) => { manuals = parseCatalog(text); renderStats(); render(); $('skeletons').classList.add('hidden'); }).catch(() => { $('skeletons').classList.add('hidden'); $('empty').classList.remove('hidden'); $('empty').innerHTML = '<span>🌱</span><h3>ไม่สามารถโหลดข้อมูลคู่มือ</h3><p>กรุณาลองใหม่อีกครั้งในภายหลัง</p>'; });
+      fetch('/handbook/data/manuals.csv').then((response) => { if (!response.ok) throw new Error('ไม่สามารถโหลดข้อมูลได้'); return response.text(); }).then((text) => { manuals = parseCatalog(text); renderStats(); render(); $('skeletons').classList.add('hidden'); }).catch(() => { $('skeletons').classList.add('hidden'); $('empty').classList.remove('hidden'); $('empty').innerHTML = '<span>🌱</span><h3>ไม่สามารถโหลดข้อมูลคู่มือ</h3><p>กรุณาลองใหม่อีกครั้งในภายหลัง</p>'; });
     </script>
   </body>
 </html>
