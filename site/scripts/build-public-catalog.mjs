@@ -47,31 +47,12 @@ const lineEnding = process.platform === 'win32' ? '\r\n' : '\n';
 const source = await readFile(sourcePath, 'utf8');
 const [header, ...rows] = parseCsv(source);
 const urlIndex = header.indexOf('ลิงก์ PDF');
-const statusIndex = header.indexOf('สถานะ');
-
-if (urlIndex < 0 || statusIndex < 0) {
-  throw new Error('Catalog must include ลิงก์ PDF and สถานะ columns.');
-}
-
-let retainedLinks = 0;
-const publicRows = rows.map((row) => {
-  const safeRow = [...row];
-  const status = safeRow[statusIndex] ?? '';
-  const isPublicVerified = status.includes('PDF ตรวจพบ');
-
-  if (isPublicVerified && safeRow[urlIndex]) {
-    retainedLinks += 1;
-  } else {
-    safeRow[urlIndex] = '';
-  }
-
-  return safeRow;
-});
-
-const output = [header, ...publicRows]
+const runtimeRows = rows.map((row) => [...row]);
+const retainedLinks = runtimeRows.filter((row) => row[urlIndex]).length;
+const output = [header, ...runtimeRows]
   .map((row) => row.map(encodeCell).join(','))
   .join(lineEnding) + lineEnding;
 
 await mkdir(dirname(outputPath), { recursive: true });
 await writeFile(outputPath, output, 'utf8');
-console.log(`Generated public catalog: ${publicRows.length} records, ${retainedLinks} verified PDF links.`);
+console.log(`Generated runtime catalog: ${runtimeRows.length} records, ${retainedLinks} source links.`);

@@ -164,3 +164,11 @@ body { margin: 0; color: var(--color-ink); font-family: Tahoma, Arial, sans-seri
 .desktop-nav a:focus-visible,
 .mobile-menu-panel a:focus-visible { outline: 3px solid rgb(80 190 116 / 45%); outline-offset: 2px; }
 @media (max-width: 767px) { .desktop-nav { display: none; } .mobile-menu { display: block; } .site-brand-copy { max-width: min(58vw, 17rem); line-height: 1.25; } .site-brand-copy > span { display: none; } }
+/* Latest-year manuals stay visible above the complete catalog. */
+.latest-panel { position: relative; overflow: hidden; border: 1px solid #9ad6aa; border-radius: 1rem; background: linear-gradient(135deg, #effbf2 0%, #fff 58%, #e2f6e8 100%); padding: 1.3rem; box-shadow: 0 18px 42px rgb(26 106 55 / 12%); }
+.latest-panel::after { content: ''; position: absolute; right: -5rem; bottom: -7rem; width: 17rem; height: 17rem; border: 1px solid rgb(63 155 97 / 18%); border-radius: 999px; }
+.latest-panel-heading { position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.latest-panel h2 { font-size: clamp(1.5rem, 3vw, 2.15rem); }
+.latest-spark { flex: 0 0 auto; border-radius: 999px; background: #207445; padding: .4rem .7rem; color: #fff; font-size: .78rem; font-weight: 800; letter-spacing: .05em; }
+#latest-cards { position: relative; z-index: 1; }
+@media (max-width: 639px) { .latest-panel { padding: 1.05rem; } .latest-panel-heading { flex-direction: column; gap: .55rem; } }

@@ -60,7 +60,8 @@ Initial catalog generated in this session:
 
 - File: `handbook-catalog-initial.csv`
 - Fields: `รหัส, ชื่อคู่มือ, ปี, กอง/หมวด, คำสำคัญ, ลิงก์ PDF, เจ้าของ, สถานะ`
-- Records: `HND-001` through `HND-042`
+- Initial legacy records: `HND-001` through `HND-042`
+- Current catalog: 43 records, including HND-043 (B.E. 2569) in งานคลังและพัสดุ.
 
 ### Data-quality and access facts
 
@@ -69,7 +70,7 @@ Initial catalog generated in this session:
 - Many legacy links now require MJU SSO, so they cannot be treated as public downloadable documents.
 - Two legacy administrative entries use a duplicated source URL; their actual PDF URLs are intentionally blank in the catalog pending owner verification.
 - The source catalog has four blank PDF-URL rows: HND-002, HND-004, HND-015, and HND-016. The latter two are known duplicated-URL pending cases; confirm the reason for the first two with the data owner.
-- The web-served catalog at `site/public/data/manuals.csv` must be generated from the source catalog and retain URLs only for records whose status contains `PDF ตรวจพบ`. Non-public URLs must be blank in the web-served file.
+- The owner explicitly authorized publication of every source URL. The web-served catalog at `site/public/data/manuals.csv` must still be generated from the source catalog, preserve source URLs when present, and visibly distinguish access status.
 - The CSV status column preserves these distinctions. Do not convert unverified, login-required, or duplicate links to `available`.
 - `เจ้าของ` is currently the responsible division/organization inferred from the catalog grouping, not the document author. Confirm individual data owners before any authoritative claim.
 
