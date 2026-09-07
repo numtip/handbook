@@ -6,69 +6,100 @@ import '../styles/global.css';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>คลังคู่มือดิจิทัล | สำนักวิจัยและส่งเสริมวิชาการการเกษตร</title>
-    <meta name="description" content="ค้นหาแค็ตตาล็อกคู่มือของสำนักวิจัยและส่งเสริมวิชาการการเกษตร มหาวิทยาลัยแม่โจ้" />
+    <meta name="description" content="Handbook Catalog สำนักวิจัยและส่งเสริมวิชาการการเกษตร มหาวิทยาลัยแม่โจ้" />
+    <title>Handbook Catalog | สำนักวิจัยฯ</title>
+    <script is:inline>
+      if (localStorage.getItem('handbook-theme') === 'dark') document.documentElement.classList.add('dark');
+    </script>
   </head>
-  <body class="bg-base-100 text-base-content site-shell">
-    <header class="site-header header border-b border-white/10 bg-base-100">
-      <nav class="container site-nav">
-        <a href="#top" class="flex min-w-0 items-center gap-3">
-          <span class="brand-mark"><img class="brand-logo" src="/assets/logorae.png" width="64" height="64" alt="ตราสำนักวิจัยและส่งเสริมวิชาการการเกษตร" /></span>
-          <span class="site-brand-copy"><strong class="block text-sm sm:text-base">สำนักวิจัยและส่งเสริมวิชาการการเกษตร</strong><span class="text-xs text-base-content/60">คลังคู่มือดิจิทัล</span></span>
+  <body class="min-h-screen bg-neutral-50 text-neutral-900 transition-colors duration-300 dark:bg-neutral-900 dark:text-neutral-50">
+    <header class="border-b border-forest-100 bg-white/90 backdrop-blur dark:border-neutral-500/30 dark:bg-neutral-900/90">
+      <nav class="catalog-shell flex min-h-20 items-center justify-between gap-4">
+        <a href="#catalog" class="flex min-w-0 items-center gap-3">
+          <img src="/assets/logorae.png" width="56" height="56" alt="ตราสำนักวิจัยและส่งเสริมวิชาการการเกษตร" class="h-12 w-12 rounded-xl2 border border-forest-100 bg-white object-contain p-1 shadow-sm" />
+          <span class="min-w-0"><strong class="block truncate text-sm text-forest-700 dark:text-forest-100 sm:text-base">สำนักวิจัยและส่งเสริมวิชาการการเกษตร</strong><span class="text-xs text-neutral-500 dark:text-neutral-50/60">Handbook Catalog</span></span>
         </a>
-        <div class="desktop-nav" aria-label="เมนูหลัก"><a href="#top">หน้าหลัก</a><a href="#categories">หมวดหมู่</a><a href="#catalog">ค้นหาคู่มือ</a><a href="#about">เกี่ยวกับ</a></div>
-        <details class="mobile-menu"><summary aria-label="เปิดเมนู"><span>เมนู</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></summary><div class="mobile-menu-panel"><a href="#top">หน้าหลัก</a><a href="#categories">หมวดหมู่</a><a href="#catalog">ค้นหาคู่มือ</a><a href="#about">เกี่ยวกับ</a></div></details>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="สลับโหมดสี" title="สลับโหมดสี"><span aria-hidden="true">◐</span><span class="hidden sm:inline">โหมดสี</span></button>
       </nav>
     </header>
-    <main id="top">
-      <section class="catalog-hero relative overflow-hidden py-14 lg:py-24"><span class="hero-glow hero-glow-one" aria-hidden="true"></span><span class="hero-glow hero-glow-two" aria-hidden="true"></span><span class="hero-grid" aria-hidden="true"></span>
-        <div class="container hero-grid-layout grid gap-8 lg:grid-cols-[1.3fr_.7fr] lg:items-end">
-          <div class="max-w-2xl"><p class="mb-2 text-sm font-semibold uppercase tracking-[.14em] text-main">Handbook catalog</p><h1>ค้นหาคู่มือที่ใช่<br /><span class="text-main">จากแหล่งข้อมูลเดียว</span></h1><div class="hero-rule"><span></span><em><span id="hero-total">—</span> คู่มือ · 5 หมวดหมู่</em></div><p class="max-w-xl text-lg leading-8">รวบรวมข้อมูลคู่มือของสำนักวิจัยและส่งเสริมวิชาการการเกษตร พร้อมสถานะการเข้าถึงที่ตรวจสอบได้</p></div>
-          <div class="hero-stats grid grid-cols-2 gap-3"><div class="rounded-lg bg-white p-5 shadow-sm"><b id="all-count" class="text-3xl text-main">—</b><p class="mt-1 text-sm">รายการในแค็ตตาล็อก</p></div><div class="rounded-lg bg-white p-5 shadow-sm"><b id="verified-count" class="text-3xl text-main">—</b><p class="mt-1 text-sm">รายการที่ตรวจพบ PDF</p></div></div>
-        </div>
-      </section>
-      <section id="categories" class="category-section container mt-10">
-        <p class="text-sm font-semibold text-main">เรียกดูตามหน่วยงาน</p>
-        <h2>หมวดหมู่เอกสาร</h2>
-        <div class="grid gap-4 lg:grid-cols-3">
-          <section class="category-admin rounded-xl border border-base-300 bg-base-100 p-5 shadow-sm lg:col-span-1"><h3 class="text-xl">1. กองบริหารงานสำนักวิจัยฯ</h3><div class="mt-4 grid gap-2"><button class="category-button text-left" data-category="admin">1.1 งานบริหารและธุรการ <span data-category-count="admin">— รายการ</span></button><button class="category-button text-left" data-category="finance">1.2 งานคลังและพัสดุ <span data-category-count="finance">— รายการ</span></button><button class="category-button text-left" data-category="policy">1.3 งานนโยบาย แผนและประกันคุณภาพ <span data-category-count="policy">— รายการ</span></button></div></section>
-          <button class="category-card text-left" data-category="research"><span class="text-sm font-semibold text-main">2. กองบริหารงานวิจัย</span><strong>เอกสารด้านการวิจัย</strong><span data-category-count="research">— รายการ</span></button>
-          <button class="category-card text-left" data-category="extension"><span class="text-sm font-semibold text-main">3. กองบริหารงานบริการวิชาการ</span><strong>เอกสารบริการวิชาการ</strong><span data-category-count="extension">— รายการ</span></button>
-        </div>
-      </section>      <section id="catalog" class="container section">
-        <div class="discovery-panel rounded-xl border border-base-300 bg-base-100 p-4 shadow-sm sm:p-6">
-          <div class="filter-heading"><div><p class="text-sm font-semibold text-main">ค้นหาในคลังข้อมูล</p><p class="mt-1 text-sm text-base-content/65">ค้นหาด้วยคำสำคัญ หรือกรองตามหน่วยงาน ปี พ.ศ. และสถานะการเข้าถึง</p></div><button id="clear-filters" class="clear-filters" type="button">ล้างตัวกรอง</button></div>
-          <div class="filter-grid mt-5">
-            <label class="filter-field filter-search"><span class="filter-label">ค้นหาคู่มือ</span><span class="input input-bordered flex items-center gap-3"><svg aria-hidden="true" viewBox="0 0 24 24" class="size-5 fill-none stroke-current"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg><input id="query" class="grow" type="search" placeholder="ชื่อคู่มือ รหัส หรือคำสำคัญ" /></span></label>
-            <label class="filter-field"><span class="filter-label">หน่วยงาน / หมวด</span><select id="division" class="select select-bordered"></select></label>
-            <label class="filter-field"><span class="filter-label">ปีที่เผยแพร่ (พ.ศ.)</span><select id="year" class="select select-bordered"></select></label>
-            <label class="filter-field"><span class="filter-label">สถานะการเข้าถึง</span><select id="access" class="select select-bordered"><option value="all">ทุกสถานะ</option><option value="public">เปิดดูได้</option><option value="login">ต้องเข้าสู่ระบบ</option><option value="pending">รอยืนยันลิงก์</option><option value="review">ต้องตรวจสอบสิทธิ์</option></select></label>
+
+    <main id="catalog">
+      <!-- Hero and data-driven statistics -->
+      <section class="hero-surface">
+        <div class="catalog-shell py-12 sm:py-16">
+          <p class="eyebrow">คลังคู่มือดิจิทัล</p>
+          <h1 class="mt-3 max-w-3xl text-4xl font-bold leading-tight text-white sm:text-5xl">ค้นหาคู่มือวิจัยและเกษตร<br /><span class="text-gold-500">จากแหล่งข้อมูลเดียว</span></h1>
+          <p class="mt-5 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">ค้นหา กรอง และเปิดอ่านคู่มือจากสำนักวิจัยและส่งเสริมวิชาการการเกษตรได้อย่างรวดเร็ว</p>
+          <div class="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+            <div class="stat-card"><b id="stat-total">—</b><span>คู่มือทั้งหมด</span></div>
+            <div class="stat-card"><b id="stat-divisions">—</b><span>หมวดหมู่</span></div>
+            <div class="stat-card"><b id="stat-ready">—</b><span>พร้อมเปิดอ่าน</span></div>
+            <div class="stat-card"><b id="stat-range" class="text-xl sm:text-2xl">—</b><span>ช่วงปีเผยแพร่</span></div>
           </div>
         </div>
-        <section id="latest-manuals" class="latest-panel mt-8 hidden" aria-labelledby="latest-title"><div class="latest-panel-heading"><div><p class="text-sm font-semibold text-main">อัปเดตล่าสุด</p><h2 id="latest-title" class="mb-1">คู่มือใหม่ <span id="latest-year"></span></h2><p class="text-base-content/70">รายการปีล่าสุดจะแสดงที่นี่อัตโนมัติเมื่อมีการเพิ่มข้อมูลใหม่</p></div><span class="latest-spark" aria-hidden="true">ใหม่</span></div><div id="latest-cards" class="mt-5 grid gap-4 lg:grid-cols-2"></div></section>        <div class="mt-8"><p class="text-sm font-semibold text-main">ผลการค้นหา</p><h2 class="mb-0">พบ <span id="result-count" aria-live="polite">0</span> รายการ</h2></div>
-        <div id="cards" class="mt-6 space-y-10"></div>
-        <p id="empty" class="mt-6 hidden rounded-xl border border-dashed border-base-300 p-8 text-center text-base-content/70">ไม่พบคู่มือที่ตรงกับเงื่อนไข</p>
       </section>
-      <section id="about" class="bg-dark py-12 text-white"><div class="container flex max-w-5xl gap-4"><div class="grid size-11 shrink-0 place-items-center rounded-lg bg-main">✓</div><div><h2 class="text-2xl">ข้อมูลและการเข้าถึงเอกสาร</h2><p class="max-w-3xl leading-7 text-white/80">เว็บไซต์นี้เผยแพร่เฉพาะข้อมูลเมตา ไม่ได้จัดเก็บไฟล์ PDF ไว้ในเว็บไซต์ และแสดงปุ่มเปิดลิงก์จากแหล่งเดิมตามข้อมูลที่มีอยู่</p></div></div></section>
+
+      <section class="catalog-shell py-8 sm:py-12">
+        <!-- Search and sort -->
+        <div class="search-panel">
+          <label class="search-input"><span aria-hidden="true">⌕</span><input id="query" type="search" placeholder="ค้นหาด้วยชื่อคู่มือ รหัส คำสำคัญ หรือเจ้าของ" autocomplete="off" /></label>
+          <label class="sort-control"><span>เรียงตาม</span><select id="sort"><option value="newest">ปีใหม่สุด</option><option value="oldest">ปีเก่าสุด</option><option value="title">ชื่อ ก-ฮ</option></select></label>
+        </div>
+
+        <!-- Desktop multi-select filter chips -->
+        <section class="desktop-filters mt-7" aria-label="ตัวกรองคู่มือ">
+          <div class="filter-heading"><h2>กรองคู่มือ</h2><button id="clear-filters" class="clear-button" type="button">ล้างตัวกรองทั้งหมด</button></div>
+          <div class="filter-group"><h3>กอง / หมวด</h3><div id="division-chips" class="chip-row"></div></div>
+          <div class="filter-group mt-5"><h3>ปี พ.ศ.</h3><div id="year-chips" class="chip-row"></div></div>
+        </section>
+
+        <!-- Results -->
+        <section class="mt-10" aria-live="polite">
+          <div class="flex items-end justify-between gap-4"><div><p class="eyebrow text-forest-500">ผลการค้นหา</p><h2 class="mt-1 text-2xl font-bold sm:text-3xl">พบ <span id="result-count">—</span> รายการ</h2></div><p id="active-filter-note" class="hidden text-sm text-neutral-500 dark:text-neutral-50/60"></p></div>
+          <div id="skeletons" class="card-grid mt-6" aria-label="กำลังโหลดข้อมูล"><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div></div>
+          <div id="cards" class="card-grid mt-6 hidden"></div>
+          <div id="empty" class="hidden empty-state"><span>🌱</span><h3>ไม่พบคู่มือที่ค้นหา</h3><p>ลองปรับคำค้น หรือเลือกหมวดหมู่และปีอื่น</p><button id="empty-clear" class="primary-button" type="button">ล้างตัวกรองทั้งหมด</button></div>
+        </section>
+      </section>
     </main>
+
+    <!-- Mobile filter bottom sheet -->
+    <button id="mobile-filter-button" class="filter-fab" type="button" aria-label="เปิดตัวกรอง">☷ <span>กรอง</span></button>
+    <div id="filter-sheet" class="filter-sheet hidden" aria-hidden="true"><div class="sheet-backdrop" data-close-sheet></div><section class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title"><div class="drag-handle"></div><div class="flex items-center justify-between gap-4"><h2 id="sheet-title">กรองคู่มือ</h2><button class="clear-button" data-close-sheet type="button">ปิด</button></div><div class="filter-group mt-5"><h3>กอง / หมวด</h3><div id="mobile-division-chips" class="chip-row"></div></div><div class="filter-group mt-5"><h3>ปี พ.ศ.</h3><div id="mobile-year-chips" class="chip-row"></div></div><div class="mt-6 flex gap-3"><button id="sheet-clear" class="secondary-button flex-1" type="button">ล้างทั้งหมด</button><button id="sheet-apply" class="primary-button flex-1" type="button">แสดงผลลัพธ์</button></div></section></div>
+
     <script>
-      type Access = 'public' | 'login' | 'pending' | 'review';
-      type Manual = { id:string; title:string; year:string; division:string; keywords:string; url:string; owner:string; status:string; access:Access };
-      const $ = <T extends HTMLElement>(id:string) => document.getElementById(id) as T;
-      const groups = [
-        { key:'admin', org:'1. กองบริหารงานสำนักวิจัยฯ', title:'1.1 งานบริหารและธุรการ', division:'กองบริหารงานสำนักวิจัยฯ / งานบริหารและธุรการ' },
-        { key:'finance', org:'1. กองบริหารงานสำนักวิจัยฯ', title:'1.2 งานคลังและพัสดุ', division:'กองบริหารงานสำนักวิจัยฯ / งานคลังและพัสดุ' },
-        { key:'policy', org:'1. กองบริหารงานสำนักวิจัยฯ', title:'1.3 งานนโยบาย แผนและประกันคุณภาพ', division:'กองบริหารงานสำนักวิจัยฯ / งานนโยบาย แผนและประกันคุณภาพ' },
-        { key:'research', org:'2. กองบริหารงานวิจัย', title:'2. กองบริหารงานวิจัย', division:'กองบริหารงานวิจัย' },
-        { key:'extension', org:'3. กองบริหารงานบริการวิชาการ', title:'3. กองบริหารงานบริการวิชาการ', division:'กองบริหารงานบริการวิชาการ' },
-      ];
-      const label:Record<Access,string> = { public:'เปิดดูได้', login:'ต้องเข้าสู่ระบบ', pending:'รอยืนยันลิงก์', review:'ต้องตรวจสอบสิทธิ์' };
-      const badge:Record<Access,string> = { public:'badge-success', login:'badge-warning', pending:'badge-error', review:'badge-neutral' };
-      function rows(text:string) { const out:string[][]=[]; let row:string[]=[],cell='',quoted=false; for(let i=0;i<text.length;i+=1){const c=text[i];if(c==='"'&&quoted&&text[i+1]==='"'){cell+=c;i+=1}else if(c==='"')quoted=!quoted;else if(c===','&&!quoted){row.push(cell);cell=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i+=1;row.push(cell);if(row.some(Boolean))out.push(row);row=[];cell=''}else cell+=c}row.push(cell);if(row.some(Boolean))out.push(row);return out }
-      function parse(text:string):Manual[] { const [head,...data]=rows(text);const at=(name:string)=>head.indexOf(name);const f={id:at('รหัส'),title:at('ชื่อคู่มือ'),year:at('ปี'),division:at('กอง/หมวด'),keywords:at('คำสำคัญ'),url:at('ลิงก์ PDF'),owner:at('เจ้าของ'),status:at('สถานะ')};return data.map((row)=>{const status=row[f.status]||'';const access:Access=status.includes('PDF ตรวจพบ')?'public':status.includes('ต้องล็อกอิน')?'login':status.includes('ต้องยืนยัน')||status.includes('ซ้ำกับรายการอื่น')?'pending':'review';return {id:row[f.id]||'',title:row[f.title]||'',year:row[f.year]||'',division:row[f.division]||'',keywords:row[f.keywords]||'',url:row[f.url]||'',owner:row[f.owner]||'',status,access}}) }
-      const option=(value:string,text=value)=>`<option value="${value}">${text}</option>`;
-      const card=(m:Manual)=>`<article class="manual-card rounded-2xl border border-base-300 bg-base-100 p-5 shadow-sm"><div class="flex items-start justify-between gap-4"><b class="text-xs tracking-[.12em] text-main">${m.id}</b><span class="badge ${badge[m.access]}">${label[m.access]}</span></div><h4 class="mt-3 text-xl leading-7">${m.title}</h4><div class="mt-4 flex flex-wrap gap-2"><span class="badge badge-ghost">${m.year?`พ.ศ. ${m.year}`:'ไม่ระบุปี'}</span>${m.keywords.split(',').slice(0,2).map((word)=>`<span class="badge badge-outline">${word}</span>`).join('')}</div>${m.url?`<a class="btn btn-sm mt-5 bg-main border-main text-white hover:bg-green-700" href="${m.url}" target="_blank" rel="noreferrer">เปิด PDF จากแหล่งเดิม</a>`:`<span class="btn btn-sm mt-5 cursor-not-allowed border-base-300 bg-base-300 text-base-content/60" aria-disabled="true">ยังไม่มีลิงก์ PDF</span>`}<details class="mt-5 border-t border-base-200 pt-4"><summary class="cursor-pointer font-semibold text-main">ดูรายละเอียด</summary><div class="mt-4 rounded-lg bg-base-200 p-4 text-sm leading-6"><p><b>หน่วยงานที่รับผิดชอบ:</b> ${m.owner}</p><p class="mt-2"><b>สถานะจากแหล่งเดิม:</b> ${m.status}</p></div></details></article>`;
-      fetch('/data/manuals.csv').then((r)=>r.text()).then((text)=>{const manuals=parse(text);$('all-count').textContent=String(manuals.length);$('hero-total').textContent=String(manuals.length);groups.forEach((group)=>{const count=manuals.filter((manual)=>manual.division===group.division).length;document.querySelectorAll<HTMLElement>(`[data-category-count="${group.key}"]`).forEach((element)=>{element.textContent=`${count} รายการ`})});$('verified-count').textContent=String(manuals.filter((m)=>m.access==='public').length);$('division').innerHTML=option('all','ทั้งหมด')+groups.map((g)=>option(g.key,g.title)).join('');const years=[...new Set(manuals.map((m)=>m.year||'ไม่ระบุปี'))].sort((a,b)=>Number(b)-Number(a));$('year').innerHTML=option('all','ทุกปี (พ.ศ.)')+years.map((year)=>option(year,year==='ไม่ระบุปี'?year:`พ.ศ. ${year}`)).join('');const latestYear=Math.max(...manuals.map((m)=>Number(m.year)).filter(Number.isFinite));const latest=manuals.filter((m)=>Number(m.year)===latestYear);$('latest-year').textContent=`พ.ศ. ${latestYear}`;$('latest-cards').innerHTML=latest.map(card).join('');$('latest-manuals').classList.toggle('hidden',latest.length===0);const syncCategoryButtons=()=>{const selected=$<HTMLSelectElement>('division').value;document.querySelectorAll<HTMLButtonElement>('[data-category]').forEach((button)=>{const active=button.dataset.category===selected;button.classList.toggle('is-active',active);button.setAttribute('aria-pressed',String(active))})};const render=()=>{syncCategoryButtons();const needle=$<HTMLInputElement>('query').value.toLocaleLowerCase('th-TH');const selected=$<HTMLSelectElement>('division').value;const year=$<HTMLSelectElement>('year').value;const access=$<HTMLSelectElement>('access').value;const found=manuals.filter((m)=>{const key=groups.find((g)=>g.division===m.division)?.key;return(!needle||[m.id,m.title,m.keywords,m.owner].join(' ').toLocaleLowerCase('th-TH').includes(needle))&&(selected==='all'||key===selected)&&(year==='all'||(m.year||'ไม่ระบุปี')===year)&&(access==='all'||m.access===access)});$('result-count').textContent=String(found.length);$('empty').classList.toggle('hidden',found.length!==0);$('cards').innerHTML=groups.map((g)=>{const docs=found.filter((m)=>m.division===g.division);return docs.length?`<section class="mb-10"><p class="font-semibold text-main">${g.org}</p><h3 class="mb-4 text-2xl">${g.title}</h3><div class="grid gap-4 lg:grid-cols-2">${docs.map(card).join('')}</div></section>`:''}).join('')};$('query').addEventListener('input',render);['division','year','access'].forEach((id)=>$(id).addEventListener('change',render));$('clear-filters').addEventListener('click',()=>{$<HTMLInputElement>('query').value='';$<HTMLSelectElement>('division').value='all';$<HTMLSelectElement>('year').value='all';$<HTMLSelectElement>('access').value='all';render();$<HTMLInputElement>('query').focus()});document.querySelectorAll<HTMLButtonElement>('[data-category]').forEach((button)=>button.addEventListener('click',()=>{$<HTMLSelectElement>('division').value=button.dataset.category||'all';render();$('catalog').scrollIntoView({behavior:'smooth'})}));render()});
+      type Access = 'ready' | 'review' | 'login';
+      type Manual = { id: string; title: string; year: string; division: string; keywords: string; url: string; owner: string; status: string; access: Access };
+      type SortMode = 'newest' | 'oldest' | 'title';
+      const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+      const state = { query: '', divisions: new Set<string>(), years: new Set<string>(), sort: 'newest' as SortMode };
+      let manuals: Manual[] = [];
+
+      // CSV parser supports quoted Thai keywords and blank cells.
+      function csvRows(text: string) { const output: string[][] = []; let row: string[] = []; let cell = ''; let quoted = false; for (let index = 0; index < text.length; index += 1) { const character = text[index]; if (character === '"' && quoted && text[index + 1] === '"') { cell += character; index += 1; } else if (character === '"') quoted = !quoted; else if (character === ',' && !quoted) { row.push(cell); cell = ''; } else if ((character === '\n' || character === '\r') && !quoted) { if (character === '\r' && text[index + 1] === '\n') index += 1; row.push(cell); if (row.some(Boolean)) output.push(row); row = []; cell = ''; } else cell += character; } row.push(cell); if (row.some(Boolean)) output.push(row); return output; }
+      function accessFrom(status: string): Access { return status.includes('PDF ตรวจพบ') ? 'ready' : status.includes('ต้องล็อกอิน') ? 'login' : 'review'; }
+      function parseCatalog(text: string): Manual[] { const [header, ...data] = csvRows(text); const at = (name: string) => header.indexOf(name); const fields = { id: at('รหัส'), title: at('ชื่อคู่มือ'), year: at('ปี'), division: at('กอง/หมวด'), keywords: at('คำสำคัญ'), url: at('ลิงก์ PDF'), owner: at('เจ้าของ'), status: at('สถานะ') }; return data.map((row) => { const status = row[fields.status] || ''; return { id: row[fields.id] || '', title: row[fields.title] || '', year: row[fields.year] || '', division: row[fields.division] || '', keywords: row[fields.keywords] || '', url: row[fields.url] || '', owner: row[fields.owner] || '', status, access: accessFrom(status) }; }); }
+      function escapeHtml(value: string) { return value.replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' }[character] || character)); }
+      function highlight(value: string) { const safe = escapeHtml(value); const term = state.query.trim(); if (!term) return safe; const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); return safe.replace(new RegExp(`(${escaped})`, 'gi'), '<mark class="bg-gold-100 text-earth-600">$1</mark>'); }
+      function categoryLabel(value: string) { return value.split('/').map((part) => part.trim()).pop() || value; }
+      function statusMeta(access: Access) { return access === 'ready' ? { text: '✓ พร้อมเปิดอ่าน', className: 'bg-success-500' } : access === 'login' ? { text: '🔒 ต้องล็อกอิน', className: 'bg-danger-500' } : { text: '⚠ ต้องตรวจสอบ', className: 'bg-warning-500' }; }
+      function safeUrl(value: string) { return /^https?:\/\//i.test(value) ? value : ''; }
+      function card(manual: Manual) { const status = statusMeta(manual.access); const tags = manual.keywords.split(',').filter(Boolean).slice(0, 3).map((tag) => `<span>${highlight(tag.trim())}</span>`).join(''); const url = safeUrl(manual.url); return `<article class="catalog-card"><div class="card-top"><span class="division-badge">🌾 ${escapeHtml(categoryLabel(manual.division))}</span><span class="status-badge ${status.className}">${status.text}</span></div><h3>${highlight(manual.title)}</h3><div class="card-meta"><span>📅 ปี ${escapeHtml(manual.year || 'ไม่ระบุ')}</span><span>•</span><span>รหัส ${escapeHtml(manual.id)}</span></div><div class="tag-row">${tags}</div><div class="card-footer"><span>👤 ${escapeHtml(manual.owner || 'ไม่ระบุเจ้าของ')}</span>${url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">เปิดอ่าน PDF <span aria-hidden="true">→</span></a>` : `<span class="unavailable">ไม่มีลิงก์ PDF</span>`}</div></article>`; }
+      function chip(kind: 'division' | 'year', value: string, label: string) { const selected = kind === 'division' ? state.divisions.has(value) : state.years.has(value); return `<button class="filter-chip ${selected ? 'chip-active' : ''}" type="button" data-filter-kind="${kind}" data-filter-value="${escapeHtml(value)}" aria-pressed="${selected}">${escapeHtml(label)}${selected ? '<span aria-hidden="true">×</span>' : ''}</button>`; }
+      function renderChips() { const divisions = [...new Set(manuals.map((manual) => manual.division).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'th')); const years = [...new Set(manuals.map((manual) => manual.year || 'ไม่ระบุปี'))].sort((a, b) => Number(b) - Number(a)); const divisionMarkup = divisions.map((division) => chip('division', division, categoryLabel(division))).join(''); const yearMarkup = years.map((year) => chip('year', year, year === 'ไม่ระบุปี' ? year : `พ.ศ. ${year}`)).join(''); $('division-chips').innerHTML = divisionMarkup; $('year-chips').innerHTML = yearMarkup; $('mobile-division-chips').innerHTML = divisionMarkup; $('mobile-year-chips').innerHTML = yearMarkup; }
+      function resetFilters() { state.query = ''; state.divisions.clear(); state.years.clear(); state.sort = 'newest'; $('query').value = ''; $('sort').value = 'newest'; render(); }
+      function render() { renderChips(); const query = state.query.toLocaleLowerCase('th-TH'); const results = manuals.filter((manual) => { const haystack = [manual.id, manual.title, manual.keywords, manual.owner, manual.division].join(' ').toLocaleLowerCase('th-TH'); const year = manual.year || 'ไม่ระบุปี'; return (!query || haystack.includes(query)) && (!state.divisions.size || state.divisions.has(manual.division)) && (!state.years.size || state.years.has(year)); }).sort((a, b) => state.sort === 'title' ? a.title.localeCompare(b.title, 'th') : state.sort === 'oldest' ? Number(a.year || 0) - Number(b.year || 0) : Number(b.year || 0) - Number(a.year || 0)); $('result-count').textContent = String(results.length); $('cards').innerHTML = results.map(card).join(''); $('cards').classList.toggle('hidden', results.length === 0); $('empty').classList.toggle('hidden', results.length !== 0); const selected = state.divisions.size + state.years.size; $('active-filter-note').classList.toggle('hidden', selected === 0); $('active-filter-note').textContent = selected ? `เลือกตัวกรอง ${selected} รายการ` : ''; }
+      function renderStats() { const years = manuals.map((manual) => Number(manual.year)).filter(Number.isFinite); $('stat-total').textContent = String(manuals.length); $('stat-divisions').textContent = String(new Set(manuals.map((manual) => manual.division).filter(Boolean)).size); $('stat-ready').textContent = String(manuals.filter((manual) => manual.access === 'ready').length); $('stat-range').textContent = years.length ? `${Math.min(...years)}–${Math.max(...years)}` : 'ไม่ระบุ'; }
+      function setSheet(open: boolean) { $('filter-sheet').classList.toggle('hidden', !open); $('filter-sheet').setAttribute('aria-hidden', String(!open)); }
+
+      // Events for search, chips, sort, mobile sheet, and dark mode.
+      $('query').addEventListener('input', (event) => { state.query = (event.target as HTMLInputElement).value; render(); });
+      $('sort').addEventListener('change', (event) => { state.sort = (event.target as HTMLSelectElement).value as SortMode; render(); });
+      document.addEventListener('click', (event) => { const target = event.target as HTMLElement; const chipButton = target.closest<HTMLButtonElement>('[data-filter-kind]'); if (chipButton) { const kind = chipButton.dataset.filterKind as 'division' | 'year'; const value = chipButton.dataset.filterValue || ''; const selected = kind === 'division' ? state.divisions : state.years; selected.has(value) ? selected.delete(value) : selected.add(value); render(); } if (target.closest('[data-close-sheet]')) setSheet(false); });
+      $('clear-filters').addEventListener('click', resetFilters); $('empty-clear').addEventListener('click', resetFilters); $('sheet-clear').addEventListener('click', resetFilters); $('mobile-filter-button').addEventListener('click', () => setSheet(true)); $('sheet-apply').addEventListener('click', () => setSheet(false));
+      $('theme-toggle').addEventListener('click', () => { const dark = document.documentElement.classList.toggle('dark'); localStorage.setItem('handbook-theme', dark ? 'dark' : 'light'); });
+
+      fetch('/data/manuals.csv').then((response) => { if (!response.ok) throw new Error('ไม่สามารถโหลดข้อมูลได้'); return response.text(); }).then((text) => { manuals = parseCatalog(text); renderStats(); render(); $('skeletons').classList.add('hidden'); }).catch(() => { $('skeletons').classList.add('hidden'); $('empty').classList.remove('hidden'); $('empty').innerHTML = '<span>🌱</span><h3>ไม่สามารถโหลดข้อมูลคู่มือ</h3><p>กรุณาลองใหม่อีกครั้งในภายหลัง</p>'; });
     </script>
   </body>
 </html>
