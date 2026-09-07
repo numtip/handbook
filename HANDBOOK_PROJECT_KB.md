@@ -68,6 +68,8 @@ Initial catalog generated in this session:
 - Some source PDFs were accessible and verified, including Zoom Meeting (2568) and Thai lady’s-slipper orchid manual (2567).
 - Many legacy links now require MJU SSO, so they cannot be treated as public downloadable documents.
 - Two legacy administrative entries use a duplicated source URL; their actual PDF URLs are intentionally blank in the catalog pending owner verification.
+- The source catalog has four blank PDF-URL rows: HND-002, HND-004, HND-015, and HND-016. The latter two are known duplicated-URL pending cases; confirm the reason for the first two with the data owner.
+- The web-served catalog at `site/public/data/manuals.csv` must be generated from the source catalog and retain URLs only for records whose status contains `PDF ตรวจพบ`. Non-public URLs must be blank in the web-served file.
 - The CSV status column preserves these distinctions. Do not convert unverified, login-required, or duplicate links to `available`.
 - `เจ้าของ` is currently the responsible division/organization inferred from the catalog grouping, not the document author. Confirm individual data owners before any authoritative claim.
 
