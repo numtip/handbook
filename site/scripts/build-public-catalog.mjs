@@ -43,6 +43,7 @@ function encodeCell(value) {
   return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 }
 
+const lineEnding = process.platform === 'win32' ? '\r\n' : '\n';
 const source = await readFile(sourcePath, 'utf8');
 const [header, ...rows] = parseCsv(source);
 const urlIndex = header.indexOf('ลิงก์ PDF');
@@ -69,7 +70,7 @@ const publicRows = rows.map((row) => {
 
 const output = [header, ...publicRows]
   .map((row) => row.map(encodeCell).join(','))
-  .join('\n') + '\n';
+  .join(lineEnding) + lineEnding;
 
 await mkdir(dirname(outputPath), { recursive: true });
 await writeFile(outputPath, output, 'utf8');
