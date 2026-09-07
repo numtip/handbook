@@ -120,3 +120,6 @@ header { position: relative; }
   .filter-fab { display: none !important; }
 }
 @media (max-width: 420px) { .mobile-menu-toggle span:last-child { display: none; } .mobile-menu-panel { grid-template-columns: 1fr; } }
+/* Production hero artwork exports */
+.hero-surface { background-image: url('/assets/hero-banner-desktop-1920x720.png'); background-size: cover; background-position: center; }
+@media (max-width: 767px) { .hero-surface { background-image: url('/assets/hero-banner-mobile-1080x1350.png'); background-position: center top; } }
