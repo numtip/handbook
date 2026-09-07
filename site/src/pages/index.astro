@@ -19,8 +19,19 @@ import '../styles/global.css';
           <img src="/assets/logorae.png" width="56" height="56" alt="ตราสำนักวิจัยและส่งเสริมวิชาการการเกษตร" class="h-12 w-12 rounded-xl2 border border-forest-100 bg-white object-contain p-1 shadow-sm" />
           <span class="min-w-0"><strong class="block truncate text-sm text-forest-700 dark:text-forest-100 sm:text-base">สำนักวิจัยและส่งเสริมวิชาการการเกษตร</strong><span class="text-xs text-neutral-500 dark:text-neutral-50/60">Handbook Catalog</span></span>
         </a>
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="สลับโหมดสี" title="สลับโหมดสี"><span aria-hidden="true">◐</span><span class="hidden sm:inline">โหมดสี</span></button>
+        <div class="nav-actions">
+          <div class="desktop-nav" aria-label="เมนูหลัก"><a href="#catalog">ค้นหาคู่มือ</a><button id="desktop-filter-button" type="button">กรองคู่มือ</button></div>
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="สลับโหมดสี" title="สลับโหมดสี"><span aria-hidden="true">◐</span><span class="theme-label">โหมดสี</span></button>
+          <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="เปิดเมนู"><span aria-hidden="true">☰</span><span>เมนู</span></button>
+        </div>
       </nav>
+      <div id="mobile-menu" class="mobile-menu hidden" aria-hidden="true">
+        <div class="catalog-shell mobile-menu-panel">
+          <a href="#catalog" data-close-menu>หน้าหลัก</a>
+          <button id="mobile-menu-filter" type="button">☷ กรองคู่มือ</button>
+          <button id="mobile-menu-theme" type="button">◐ สลับโหมดสี</button>
+        </div>
+      </div>
     </header>
 
     <main id="catalog">
@@ -44,10 +55,11 @@ import '../styles/global.css';
         <div class="search-panel">
           <label class="search-input"><span aria-hidden="true">⌕</span><input id="query" type="search" placeholder="ค้นหาด้วยชื่อคู่มือ รหัส คำสำคัญ หรือเจ้าของ" autocomplete="off" /></label>
           <label class="sort-control"><span>เรียงตาม</span><select id="sort"><option value="newest">ปีใหม่สุด</option><option value="oldest">ปีเก่าสุด</option><option value="title">ชื่อ ก-ฮ</option></select></label>
+          <button id="mobile-inline-filter-button" class="mobile-filter-trigger" type="button">☷ <span>กรองคู่มือ</span><span id="mobile-filter-count" class="hidden"></span></button>
         </div>
 
         <!-- Desktop multi-select filter chips -->
-        <section class="desktop-filters mt-7" aria-label="ตัวกรองคู่มือ">
+        <section id="desktop-filters" class="desktop-filters mt-7" aria-label="ตัวกรองคู่มือ">
           <div class="filter-heading"><h2>กรองคู่มือ</h2><button id="clear-filters" class="clear-button" type="button">ล้างตัวกรองทั้งหมด</button></div>
           <div class="filter-group"><h3>กอง / หมวด</h3><div id="division-chips" class="chip-row"></div></div>
           <div class="filter-group mt-5"><h3>ปี พ.ศ.</h3><div id="year-chips" class="chip-row"></div></div>
@@ -64,7 +76,6 @@ import '../styles/global.css';
     </main>
 
     <!-- Mobile filter bottom sheet -->
-    <button id="mobile-filter-button" class="filter-fab" type="button" aria-label="เปิดตัวกรอง">☷ <span>กรอง</span></button>
     <div id="filter-sheet" class="filter-sheet hidden" aria-hidden="true"><div class="sheet-backdrop" data-close-sheet></div><section class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title"><div class="drag-handle"></div><div class="flex items-center justify-between gap-4"><h2 id="sheet-title">กรองคู่มือ</h2><button class="clear-button" data-close-sheet type="button">ปิด</button></div><div class="filter-group mt-5"><h3>กอง / หมวด</h3><div id="mobile-division-chips" class="chip-row"></div></div><div class="filter-group mt-5"><h3>ปี พ.ศ.</h3><div id="mobile-year-chips" class="chip-row"></div></div><div class="mt-6 flex gap-3"><button id="sheet-clear" class="secondary-button flex-1" type="button">ล้างทั้งหมด</button><button id="sheet-apply" class="primary-button flex-1" type="button">แสดงผลลัพธ์</button></div></section></div>
 
     <script>
@@ -85,16 +96,21 @@ import '../styles/global.css';
       function chip(kind: 'division' | 'year', value: string, label: string) { const selected = kind === 'division' ? state.divisions.has(value) : state.years.has(value); return `<button class="filter-chip ${selected ? 'chip-active' : ''}" type="button" data-filter-kind="${kind}" data-filter-value="${escapeHtml(value)}" aria-pressed="${selected}">${escapeHtml(label)}${selected ? '<span aria-hidden="true">×</span>' : ''}</button>`; }
       function renderChips() { const divisions = [...new Set(manuals.map((manual) => manual.division).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'th')); const years = [...new Set(manuals.map((manual) => manual.year || 'ไม่ระบุปี'))].sort((a, b) => Number(b) - Number(a)); const divisionMarkup = divisions.map((division) => chip('division', division, categoryLabel(division))).join(''); const yearMarkup = years.map((year) => chip('year', year, year === 'ไม่ระบุปี' ? year : `พ.ศ. ${year}`)).join(''); $('division-chips').innerHTML = divisionMarkup; $('year-chips').innerHTML = yearMarkup; $('mobile-division-chips').innerHTML = divisionMarkup; $('mobile-year-chips').innerHTML = yearMarkup; }
       function resetFilters() { state.query = ''; state.divisions.clear(); state.years.clear(); state.sort = 'newest'; $('query').value = ''; $('sort').value = 'newest'; render(); }
-      function render() { renderChips(); const query = state.query.toLocaleLowerCase('th-TH'); const results = manuals.filter((manual) => { const haystack = [manual.id, manual.title, manual.keywords, manual.owner, manual.division].join(' ').toLocaleLowerCase('th-TH'); const year = manual.year || 'ไม่ระบุปี'; return (!query || haystack.includes(query)) && (!state.divisions.size || state.divisions.has(manual.division)) && (!state.years.size || state.years.has(year)); }).sort((a, b) => state.sort === 'title' ? a.title.localeCompare(b.title, 'th') : state.sort === 'oldest' ? Number(a.year || 0) - Number(b.year || 0) : Number(b.year || 0) - Number(a.year || 0)); $('result-count').textContent = String(results.length); $('cards').innerHTML = results.map(card).join(''); $('cards').classList.toggle('hidden', results.length === 0); $('empty').classList.toggle('hidden', results.length !== 0); const selected = state.divisions.size + state.years.size; $('active-filter-note').classList.toggle('hidden', selected === 0); $('active-filter-note').textContent = selected ? `เลือกตัวกรอง ${selected} รายการ` : ''; }
+      function render() { renderChips(); const query = state.query.toLocaleLowerCase('th-TH'); const results = manuals.filter((manual) => { const haystack = [manual.id, manual.title, manual.keywords, manual.owner, manual.division].join(' ').toLocaleLowerCase('th-TH'); const year = manual.year || 'ไม่ระบุปี'; return (!query || haystack.includes(query)) && (!state.divisions.size || state.divisions.has(manual.division)) && (!state.years.size || state.years.has(year)); }).sort((a, b) => state.sort === 'title' ? a.title.localeCompare(b.title, 'th') : state.sort === 'oldest' ? Number(a.year || 0) - Number(b.year || 0) : Number(b.year || 0) - Number(a.year || 0)); $('result-count').textContent = String(results.length); $('cards').innerHTML = results.map(card).join(''); $('cards').classList.toggle('hidden', results.length === 0); $('empty').classList.toggle('hidden', results.length !== 0); const selected = state.divisions.size + state.years.size; $('active-filter-note').classList.toggle('hidden', selected === 0); $('active-filter-note').textContent = selected ? `เลือกตัวกรอง ${selected} รายการ` : ''; $('mobile-filter-count').classList.toggle('hidden', selected === 0); $('mobile-filter-count').textContent = selected ? String(selected) : ''; }
       function renderStats() { const years = manuals.map((manual) => Number(manual.year)).filter(Number.isFinite); $('stat-total').textContent = String(manuals.length); $('stat-divisions').textContent = String(new Set(manuals.map((manual) => manual.division).filter(Boolean)).size); $('stat-latest').textContent = years.length ? String(Math.max(...years)) : '—'; $('stat-range').textContent = years.length ? `${Math.min(...years)}–${Math.max(...years)}` : 'ไม่ระบุ'; }
       function setSheet(open: boolean) { $('filter-sheet').classList.toggle('hidden', !open); $('filter-sheet').setAttribute('aria-hidden', String(!open)); }
+      function setMenu(open: boolean) { $('mobile-menu').classList.toggle('hidden', !open); $('mobile-menu').setAttribute('aria-hidden', String(!open)); $('mobile-menu-toggle').setAttribute('aria-expanded', String(open)); }
+      function toggleTheme() { const dark = document.documentElement.classList.toggle('dark'); localStorage.setItem('handbook-theme', dark ? 'dark' : 'light'); }
+      function openFilters() { setMenu(false); if (window.matchMedia('(max-width: 767px)').matches) setSheet(true); else $('desktop-filters').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
 
       // Events for search, chips, sort, mobile sheet, and dark mode.
       $('query').addEventListener('input', (event) => { state.query = (event.target as HTMLInputElement).value; render(); });
       $('sort').addEventListener('change', (event) => { state.sort = (event.target as HTMLSelectElement).value as SortMode; render(); });
       document.addEventListener('click', (event) => { const target = event.target as HTMLElement; const chipButton = target.closest<HTMLButtonElement>('[data-filter-kind]'); if (chipButton) { const kind = chipButton.dataset.filterKind as 'division' | 'year'; const value = chipButton.dataset.filterValue || ''; const selected = kind === 'division' ? state.divisions : state.years; selected.has(value) ? selected.delete(value) : selected.add(value); render(); } if (target.closest('[data-close-sheet]')) setSheet(false); });
-      $('clear-filters').addEventListener('click', resetFilters); $('empty-clear').addEventListener('click', resetFilters); $('sheet-clear').addEventListener('click', resetFilters); $('mobile-filter-button').addEventListener('click', () => setSheet(true)); $('sheet-apply').addEventListener('click', () => setSheet(false));
-      $('theme-toggle').addEventListener('click', () => { const dark = document.documentElement.classList.toggle('dark'); localStorage.setItem('handbook-theme', dark ? 'dark' : 'light'); });
+      $('clear-filters').addEventListener('click', resetFilters); $('empty-clear').addEventListener('click', resetFilters); $('sheet-clear').addEventListener('click', resetFilters); $('sheet-apply').addEventListener('click', () => setSheet(false));
+      $('desktop-filter-button').addEventListener('click', openFilters); $('mobile-inline-filter-button').addEventListener('click', openFilters); $('mobile-menu-filter').addEventListener('click', openFilters);
+      $('mobile-menu-toggle').addEventListener('click', () => setMenu($('mobile-menu').classList.contains('hidden'))); document.addEventListener('click', (event) => { if ((event.target as HTMLElement).closest('[data-close-menu]')) setMenu(false); }); document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { setMenu(false); setSheet(false); } });
+      $('theme-toggle').addEventListener('click', toggleTheme); $('mobile-menu-theme').addEventListener('click', toggleTheme);
 
       fetch('/data/manuals.csv').then((response) => { if (!response.ok) throw new Error('ไม่สามารถโหลดข้อมูลได้'); return response.text(); }).then((text) => { manuals = parseCatalog(text); renderStats(); render(); $('skeletons').classList.add('hidden'); }).catch(() => { $('skeletons').classList.add('hidden'); $('empty').classList.remove('hidden'); $('empty').innerHTML = '<span>🌱</span><h3>ไม่สามารถโหลดข้อมูลคู่มือ</h3><p>กรุณาลองใหม่อีกครั้งในภายหลัง</p>'; });
     </script>
