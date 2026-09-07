@@ -25,3 +25,31 @@ body { margin: 0; color: var(--color-ink); font-family: Tahoma, Arial, sans-seri
 .manual-card { position:relative; overflow:hidden; border-color:#dce9de; box-shadow:0 8px 22px rgb(19 75 40 / 6%); animation:card-in .5s both; transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease,border-color .3s ease; }.manual-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#1b7045,#a1eab7); transform:scaleX(0); transform-origin:left; transition:transform .3s ease; }.manual-card:hover { transform:translateY(-6px) rotateX(1deg); border-color:#8bcaa0; box-shadow:0 20px 38px rgb(16 80 42 / 14%); }.manual-card:hover::before { transform:scaleX(1); }.manual-card details summary { list-style:none; }.manual-card details summary::-webkit-details-marker { display:none; }.manual-card details summary::after { content:'+'; display:inline-grid; place-items:center; width:1.25rem; height:1.25rem; margin-left:.5rem; border-radius:999px; background:#eaf8ef; transition:transform .2s ease; }.manual-card details[open] summary::after { transform:rotate(45deg); }.manual-card details > div { animation:details-in .28s ease both; }
 @keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } } @keyframes card-in { from { opacity:0; transform:translateY(14px) scale(.985); } to { opacity:1; transform:translateY(0) scale(1); } } @keyframes details-in { from { opacity:0; transform:translateY(-5px); } to { opacity:1; transform:translateY(0); } } @keyframes drift { from { transform:translate3d(-16px,-8px,0) scale(.96); } to { transform:translate3d(16px,10px,0) scale(1.06); } }
 @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; } }
+
+/* Category-grid repair: each category card owns a stable vertical rhythm. */
+.category-section > .grid { align-items: stretch; }
+.category-admin { display: flex; min-height: 15.5rem; flex-direction: column; justify-content: flex-start; }
+.category-admin h3 { margin-bottom: 1rem; }
+.category-card {
+  display: flex;
+  width: 100%;
+  min-height: 15.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 1.5rem 1.6rem 1.35rem;
+  text-align: left;
+}
+.category-card > span:first-child { display: block; max-width: calc(100% - 2rem); line-height: 1.45; }
+.category-card > strong { display: block; max-width: 15rem; margin-top: auto; margin-bottom: .65rem; line-height: 1.22; }
+.category-card > span:last-child {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #e6f6eb;
+  padding: .32rem .62rem;
+  color: #266a40;
+  font-size: .78rem;
+  font-weight: 700;
+}
+@media (max-width: 1023px) { .category-admin, .category-card { min-height: auto; } }
