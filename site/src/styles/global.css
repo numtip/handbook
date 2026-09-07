@@ -53,3 +53,14 @@ body { margin: 0; color: var(--color-ink); font-family: Tahoma, Arial, sans-seri
   font-weight: 700;
 }
 @media (max-width: 1023px) { .category-admin, .category-card { min-height: auto; } }
+
+/* Compact the secondary categories so their information reads as one unit. */
+.category-section > .grid { align-items: start; }
+.category-card {
+  min-height: 12.25rem;
+  justify-content: center;
+  gap: .7rem;
+}
+.category-card > span:first-child { margin-bottom: .45rem; }
+.category-card > strong { margin: 0; }
+.category-card > span:last-child { margin-top: .1rem; }
