@@ -1,0 +1,8 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+:root { --canvas: #f8faf8; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--canvas); color: #0f172a; font-family: Tahoma, Arial, sans-serif; }
+button, input, select { font: inherit; }
