@@ -60,9 +60,8 @@ button, input, select { font: inherit; }
 .dark .catalog-card { border-color: rgb(255 255 255 / .12); background: #22302A; }
 .catalog-card:hover { transform: translateY(-.25rem); border-color: #2E7D5B; box-shadow: 0 18px 32px rgb(31 77 58 / .14); }
 .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .6rem; }
-.division-badge, .status-badge { display: inline-flex; align-items: center; border-radius: 999px; padding: .3rem .55rem; font-size: .72rem; font-weight: 800; line-height: 1.25; }
-.division-badge { max-width: 62%; background: #DCEFE4; color: #1F4D3A; }
-.status-badge { flex: 0 0 auto; color: #fff; }
+.division-badge { display: inline-flex; align-items: center; border-radius: 999px; padding: .3rem .55rem; font-size: .72rem; font-weight: 800; line-height: 1.25; }
+.division-badge { max-width: 100%; background: #DCEFE4; color: #1F4D3A; }
 .catalog-card h3 { display: -webkit-box; overflow: hidden; min-height: 2.9rem; margin: 0; -webkit-box-orient: vertical; -webkit-line-clamp: 2; color: #22302A; font-size: 1rem; font-weight: 800; line-height: 1.45; }
 .dark .catalog-card h3 { color: #F4F7F5; }
 .catalog-card:hover h3 { color: #1F4D3A; }
